@@ -1,14 +1,42 @@
 # Hyper
 
-A "hyper" style modal spoon. I use karabiner-elements.app on my laptop and QMK
-on my mech keyboards to bind a single key to `F19`, which fires all this
-Hammerspoon-powered OSX automation.
+Hyper is a wrapper on
+[hs.hotkey.modal](https://www.hammerspoon.org/docs/hs.hotkey.modal) that
+enables PTT-style momentary access to lua automation, with an optional
+`passThrough` that lets you send a "Hyper chord" to an OSX application.
 
 I chiefly use it to launch applications quickly from a single press, although I
 also use it to create "universal" local bindings inspired by [Shawn Blanc's
 OopsieThings](https://thesweetsetup.com/oopsiethings-applescript-for-things-on-mac/).
 
+A simple example:
+
 ```lua
+hs.loadSpoon('Hyper')
+
+App   = hs.application
+Hyper = spoon.Hyper
+
+Hyper:bindHotKeys({hyperKey = {{}, 'F19'}})
+
+Hyper:bind({}, 'j', function()
+  App.launchOrFocusByBundleID('net.kovidgoyal.kitty')
+end)
+Hyper:bind({}, 'return', nil, autolayout.autoLayout)
+Hyper:passThrough('.', 'com.culturedcode.ThingsMac')
+```
+
+## ⚠ Migration from 1.0
+
+2.0 no longer requires using exact same configuration table that I specified in
+1.0, you are free to use whatever scheme you want!
+
+If you have a 1.0 style configuration table, you can use a quick transformation
+function to keep your setup working with 2.0:
+
+```lua
+hs.loadSpoon('Hyper')
+
 Config = {
   applications = {
     ['com.culturedcode.ThingsMac'] = {
@@ -18,13 +46,21 @@ Config = {
     }
   }
 }
-
-hs.loadSpoon('Hyper')
 Hyper = spoon.Hyper
-             :start(Config)
-             :setHyperKey('F19')
+Hyper:bindHotKeys({hyperKey = {{}, 'F19'}})
 
-Hyper:bind({}, 'return', nil, autolayout.autoLayout)
+hs.fnutils.each(Config.applications, function(appConfig)
+  if appConfig.hyperKey then
+    Hyper:bind({}, appConfig.hyperKey, function() hs.application.launchOrFocusByBundleID(appConfig.bundleID) end)
+  end
+  if appConfig.localBindings then
+    hs.fnutils.each(appConfig.localBindings, function(key)
+      Hyper:passThrough(key, appConfig.bundleID)
+    end)
+  end
+end)
 ```
 
-[Original Blog Post](http://evantravers.com/articles/2020/06/08/hammerspoon-a-better-better-hyper-key/)
+## Resources
+
+- [Original Blog Post](http://evantravers.com/articles/2020/06/08/hammerspoon-a-better-better-hyper-key/)
