@@ -1,8 +1,8 @@
 --- === Hyper ===
 ---
 --- Hyper is a wrapper on hs.hotkey.modal that enables PTT-style momentary
---- access to lua automation, with an optional `passThrough` that lets you send
---- a "Hyper chord" to an OSX application.
+--- access to lua automation, with an optional `bindPassThrough` that lets you
+--- send a "Hyper chord" to an OSX application.
 ---
 --- I chiefly use it to launch applications quickly from a single press,
 --- although I also use it to create "universal" local bindings inspired by
@@ -12,7 +12,7 @@
 local m = hs.hotkey.modal.new({}, nil)
 
 m.name = "Hyper"
-m.version = "2.0"
+m.version = "2.1"
 m.author = "Evan Travers <evantravers@gmail.com>"
 m.license = "MIT <https://opensource.org/licenses/MIT>"
 m.homepage = "https://github.com/evantravers/Hyper.spoon"
@@ -30,14 +30,14 @@ function m:bindHotKeys(mapping)
   return self
 end
 
---- Hyper:passThrough(key, bundleId) -> hs.hotkey.modal
+--- Hyper:bindPassThrough(key, bundleId) -> hs.hotkey.modal
 --- Method
 --- Ensures the bundleId's application is running, then sends the "hyper-chord"
 --- (⌘+⌥+⌃+⇧) plus whatever you set as `key`.
 ---
 --- Returns:
 ---  * self
-function m:passThrough(key, app)
+function m:bindPassThrough(key, app)
   m:bind({}, key, nil, function()
     if hs.application.get(app) then
       hs.eventtap.keyStroke({'cmd','alt','shift','ctrl'}, key)

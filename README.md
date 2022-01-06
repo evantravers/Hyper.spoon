@@ -3,7 +3,7 @@
 Hyper is a wrapper on
 [hs.hotkey.modal](https://www.hammerspoon.org/docs/hs.hotkey.modal) that
 enables PTT-style momentary access to lua automation, with an optional
-`passThrough` that lets you send a "Hyper chord" to an OSX application.
+`bindPassThrough` that lets you send a "Hyper chord" to an OSX application.
 
 I chiefly use it to launch applications quickly from a single press, although I
 also use it to create "universal" local bindings inspired by [Shawn Blanc's
@@ -23,7 +23,7 @@ Hyper:bind({}, 'j', function()
   App.launchOrFocusByBundleID('net.kovidgoyal.kitty')
 end)
 Hyper:bind({}, 'return', nil, autolayout.autoLayout)
-Hyper:passThrough('.', 'com.culturedcode.ThingsMac')
+Hyper:bindPassThrough('.', 'com.culturedcode.ThingsMac')
 ```
 
 ## ⚠ Migration from 1.0
@@ -55,7 +55,7 @@ hs.fnutils.each(Config.applications, function(appConfig)
   end
   if appConfig.localBindings then
     hs.fnutils.each(appConfig.localBindings, function(key)
-      Hyper:passThrough(key, appConfig.bundleID)
+      Hyper:bindPassThrough(key, appConfig.bundleID)
     end)
   end
 end)
