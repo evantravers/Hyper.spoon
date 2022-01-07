@@ -12,7 +12,7 @@
 local m = hs.hotkey.modal.new({}, nil)
 
 m.name = "Hyper"
-m.version = "2.1"
+m.version = "2.2"
 m.author = "Evan Travers <evantravers@gmail.com>"
 m.license = "MIT <https://opensource.org/licenses/MIT>"
 m.homepage = "https://github.com/evantravers/Hyper.spoon"
@@ -42,7 +42,7 @@ function m:bindPassThrough(key, app)
     if hs.application.get(app) then
       hs.eventtap.keyStroke({'cmd','alt','shift','ctrl'}, key)
     else
-      hs.application.launchOrFocusByBundleID(app.bundleID)
+      hs.application.launchOrFocusByBundleID(app)
       hs.timer.waitWhile(
         function()
           return not hs.application.get(app):isFrontmost()
