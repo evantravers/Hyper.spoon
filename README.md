@@ -26,6 +26,10 @@ Hyper:bind({}, 'return', nil, autolayout.autoLayout)
 Hyper:bindPassThrough('.', 'com.culturedcode.ThingsMac')
 ```
 
+## 📦 Installation
+
+Just download [the latest release](https://github.com/evantravers/Hyper.spoon/releases/latest/download/Hyper.spoon.zip), double click to unzip and double-click the resulting Hyper.spoon. It will be installed automatically by hammerspoon.
+
 ## ⚠ Migration from 1.0
 
 2.0 no longer requires using exact same configuration table that I specified in
