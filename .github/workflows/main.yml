@@ -30,10 +30,10 @@ jobs:
         with:
         # Filename for archive
           exclusions: '*.git*'
-          filename: Hyper.zip
+          filename: Hyper.spoon.zip
       - name: Upload Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "Hyper.zip"
+          artifacts: "Hyper.spoon.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
