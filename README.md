@@ -44,7 +44,8 @@ installed automatically by hammerspoon.
 If you have a 1.0 style configuration table, you can use a quick transformation
 function to keep your setup working with 2.0:
 
-```lua hs.loadSpoon('Hyper')
+```lua
+hs.loadSpoon('Hyper')
 
 Config = { applications = { ['com.culturedcode.ThingsMac'] = { bundleID =
 'com.culturedcode.ThingsMac', hyperKey = 't', localBindings = {',', '.'}, } } }
@@ -54,7 +55,8 @@ hs.fnutils.each(Config.applications, function(appConfig) if appConfig.hyperKey
 then Hyper:bind({}, appConfig.hyperKey, function()
 hs.application.launchOrFocusByBundleID(appConfig.bundleID) end) end if
 appConfig.localBindings then hs.fnutils.each(appConfig.localBindings,
-function(key) Hyper:bindPassThrough(key, appConfig.bundleID) end) end end) ```
+function(key) Hyper:bindPassThrough(key, appConfig.bundleID) end) end end)
+```
 
 ## Resources
 
