@@ -16,8 +16,8 @@ OopsieThings](https://thesweetsetup.com/oopsiethings-applescript-for-things-on-m
 
 A simple example:
 
-```
-lua hs.loadSpoon('Hyper')
+```lua
+hs.loadSpoon('Hyper')
 
 App   = hs.application Hyper = spoon.Hyper
 
@@ -26,7 +26,8 @@ Hyper:bindHotKeys({hyperKey = {{}, 'F19'}})
 Hyper:bind({}, 'j', function()
 App.launchOrFocusByBundleID('net.kovidgoyal.kitty') end) Hyper:bind({},
 'return', nil, autolayout.autoLayout) Hyper:bindPassThrough('.',
-'com.culturedcode.ThingsMac') ```
+'com.culturedcode.ThingsMac')
+```
 
 ## 📦 Installation
 
