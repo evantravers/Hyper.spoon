@@ -16,7 +16,8 @@ OopsieThings](https://thesweetsetup.com/oopsiethings-applescript-for-things-on-m
 
 A simple example:
 
-```lua hs.loadSpoon('Hyper')
+```
+lua hs.loadSpoon('Hyper')
 
 App   = hs.application Hyper = spoon.Hyper
 
