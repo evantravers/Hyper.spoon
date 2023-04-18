@@ -19,14 +19,14 @@ A simple example:
 ```lua
 hs.loadSpoon('Hyper')
 
-App   = hs.application Hyper = spoon.Hyper
-
+App = hs.application Hyper = spoon.Hyper
 Hyper:bindHotKeys({hyperKey = {{}, 'F19'}})
 
 Hyper:bind({}, 'j', function()
-App.launchOrFocusByBundleID('net.kovidgoyal.kitty') end) Hyper:bind({},
-'return', nil, autolayout.autoLayout) Hyper:bindPassThrough('.',
-'com.culturedcode.ThingsMac')
+    App.launchOrFocusByBundleID('net.kovidgoyal.kitty')
+end)
+Hyper:bind({}, 'return', nil, autolayout.autoLayout)
+Hyper:bindPassThrough('.', 'com.culturedcode.ThingsMac')
 ```
 
 ## 📦 Installation
@@ -47,15 +47,29 @@ function to keep your setup working with 2.0:
 ```lua
 hs.loadSpoon('Hyper')
 
-Config = { applications = { ['com.culturedcode.ThingsMac'] = { bundleID =
-'com.culturedcode.ThingsMac', hyperKey = 't', localBindings = {',', '.'}, } } }
+Config = {
+    applications = {
+        ['com.culturedcode.ThingsMac'] = {
+            bundleID = 'com.culturedcode.ThingsMac',
+            hyperKey = 't',
+            localBindings = {',', '.'},
+        }
+    }
+}
 Hyper = spoon.Hyper Hyper:bindHotKeys({hyperKey = {{}, 'F19'}})
 
-hs.fnutils.each(Config.applications, function(appConfig) if appConfig.hyperKey
-then Hyper:bind({}, appConfig.hyperKey, function()
-hs.application.launchOrFocusByBundleID(appConfig.bundleID) end) end if
-appConfig.localBindings then hs.fnutils.each(appConfig.localBindings,
-function(key) Hyper:bindPassThrough(key, appConfig.bundleID) end) end end)
+hs.fnutils.each(Config.applications, function(appConfig)
+    if appConfig.hyperKey then 
+        Hyper:bind({}, appConfig.hyperKey, function()
+            hs.application.launchOrFocusByBundleID(appConfig.bundleID)
+        end)
+    end
+    if appConfig.localBindings then
+        hs.fnutils.each(appConfig.localBindings, function(key)
+            Hyper:bindPassThrough(key, appConfig.bundleID)
+        end)
+    end
+end)
 ```
 
 ## Resources
